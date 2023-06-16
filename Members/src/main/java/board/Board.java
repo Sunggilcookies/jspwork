@@ -12,7 +12,17 @@ public class Board implements Serializable{
 	private Timestamp modifyDate;
 	private int hit;
 	private String memberId;
+	private String fileUpload;
 	
+	
+	public String getFileUpload() {
+		return fileUpload;
+	}
+
+	public void setFileUpload(String fileUpload) {
+		this.fileUpload = fileUpload;
+	}
+
 	public int getBnum() {
 		return bnum;
 			

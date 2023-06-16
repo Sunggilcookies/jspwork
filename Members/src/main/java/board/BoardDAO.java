@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import common.JDBCUtil;
@@ -28,6 +29,7 @@ public class BoardDAO {
 					board.setTitle(rs.getString("title"));
 					board.setContent(rs.getString("content"));
 					board.setRegDate(rs.getTimestamp("regdate"));
+					
 					board.setModifyDate(rs.getTimestamp("modifydate"));
 					board.setHit(rs.getInt("hit"));
 					board.setMemberId(rs.getString("memberid"));
@@ -49,13 +51,14 @@ public class BoardDAO {
 		//게시글 쓰기
 		public void addBoard(Board board) {
 			conn =JDBCUtil.getConnection();
-			String sql = "INSERT INTO t_board(bnum, title, content, memberid)"
-					+"VALUES (b_seq.NEXTVAL, ?,?,?)";
+			String sql = "INSERT INTO t_board(bnum, title, content, memberid, fileupload)"
+					+ "VALUES (b_seq.NEXTVAL, ?, ?, ?, ?)";
 					try {
 						pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, board.getTitle());
 						pstmt.setString(2, board.getContent());
 						pstmt.setString(3, board.getMemberId());
+						pstmt.setString(4, board.getFileUpload());
 						pstmt.executeUpdate(); //db에 저장
 					} catch (SQLException e) {
 						e.printStackTrace();
@@ -121,6 +124,31 @@ public class BoardDAO {
 						
 				
 			}
+		//게시글 수정
+		public void updateBoard(Board board) {
+			//현재 시간 객체 생성
+			Timestamp now = new Timestamp(System.currentTimeMillis());
+			conn =JDBCUtil.getConnection();
+			String sql = "UPDATE t_board SET title=?, content=?, "
+					+"modifyDate=? WHERE bnum = ?";
+					try {
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, board.getTitle());
+						pstmt.setString(2, board.getContent());
+						pstmt.setTimestamp(3, now);
+						pstmt.setInt(4, board.getBnum());
+						pstmt.executeUpdate(); //db에 저장
+						
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						JDBCUtil.close(conn, pstmt);
+					}
+				
+			
 		}
+		
+}
 		
 

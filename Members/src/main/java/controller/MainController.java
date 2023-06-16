@@ -7,15 +7,20 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import board.Board;
 import board.BoardDAO;
@@ -92,7 +97,13 @@ public class MainController extends HttpServlet {
 			
 				
 			memberDAO.addMember(newMember); //회원 매개로 DB에 저장
+			
+			
+		
+			session.setAttribute("sessionId", memberId);
+			
 			nextPage = "/index.jsp";
+			
 		}else if(command.equals("/memberView.do")){
 			
 			//MemberId 받기
@@ -151,19 +162,37 @@ public class MainController extends HttpServlet {
 		}else if(command.equals("/boardForm.do")) {
 			nextPage="/board/boardForm.jsp";
 		}else if(command.equals("/addBoard.do")) {
+			
+			String realFolder = "C://green_project//jspworks//Members//src//main//webapp//upload";
+			
+			MultipartRequest multi = new MultipartRequest(request, realFolder, 5*1024*1024, "utf-8", new DefaultFileRenamePolicy());
+			
 			//글쓰기 폼에 입력된 데이터 받아오기
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
+			String title = multi.getParameter("title");
+			String content = multi.getParameter("content");
 			//memberId 세션을 가져오기
 			String memberId = (String)session.getAttribute("sessionId");
 			
-			Board board = new Board();
-			board.setTitle(title);
-			board.setContent(content);
-			board.setMemberId(memberId);
+			//fileName 속성 가져오기
+			Enumeration<String> files = multi.getFileNames();
+			String name = "";
+			String filename ="";
+			if(files.hasMoreElements()) {
+				name = (String)files.nextElement();
+				filename = multi.getFilesystemName(name);
+				
+			}
+			
+			Board newBoard = new Board();
+			newBoard.setTitle(title);
+			newBoard.setContent(content);
+			newBoard.setMemberId(memberId);
+			newBoard.setMemberId(memberId);
+			newBoard.setFileUpload(filename);
 			
 			//글쓰기 처리 메서드 호출
-			boardDAO.addBoard(board);
+			boardDAO.addBoard(newBoard);
+						
 		}else if(command.equals("/boardView.do")) {
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
 			Board board = boardDAO.getBoard(bnum);
@@ -175,7 +204,29 @@ public class MainController extends HttpServlet {
 		}else if (command.equals("/deleteBoard.do")) {
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
 			boardDAO.deleteBoard(bnum);
-			nextPage = "/boardList.do"; //삭제 후 게시물 목록 이
+			nextPage = "/boardList.do"; 
+			
+		}else if (command.equals("/updateBoard.do")) { //삭제 후 게시물 목록 이동
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			
+			Board board = boardDAO.getBoard(bnum); //게시글 상세보기
+			request.setAttribute("board", board);
+			nextPage="/board/updateBoard.jsp";
+		
+		}else if (command.equals("/updateProcess.do")) {
+			//수정 페이지에서 입력된 폼 내용 받기\
+			int bnum= Integer.parseInt(request.getParameter("bnum"));	
+			String title= request.getParameter("title");	
+			String content= request.getParameter("content");
+			
+			Board updateBoard = new Board();
+			updateBoard.setTitle(title);
+			updateBoard.setContent(content);//제목과 내용 값 수정
+			updateBoard.setBnum(bnum);
+			
+			boardDAO.updateBoard(updateBoard); //수정처리
+			nextPage = "/boardList.do";
+			
 		}
 
 			

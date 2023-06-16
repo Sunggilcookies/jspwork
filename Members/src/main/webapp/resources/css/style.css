@@ -36,6 +36,7 @@ footer{height: 80px; border-top:2px solid #222;}
                   border-collapse: collapse; text-align: center;}
 #memberlist table th,td{padding: 10px 0; font-size: 0.9em;}
 #memberlist table thead{background: #eee;}
+#memberlist .lk{float:left; text-align : center;}
 
 /*memver view 스타일*/
 #detail{width: 550px; margin: 40px auto;}
@@ -46,13 +47,13 @@ footer{height: 80px; border-top:2px solid #222;}
 #detail table thead{background: #eee;}
 
 /* register스타일 */
-#register{width:400px; margin: 30px auto 100px;}
+#register{width:500px; margin: 30px auto 100px;}
 #register form{margin:30px auto;}
 #register form fieldset{padding:20px;}
 #register form ul li{margin:30px 20px; list-style: none;}
 #register form label{width:120px; float:left; padding-left:10px;margin-right:10px;}
-#register form input[type='text']{width: 210px; height:25px;}
-#register form input[type='password']{width: 210px; height:25px;}
+#register form input[type='text']{width: 280px; height:25px;}
+#register form input[type='password']{width: 280px; height:25px;}
 #register form li label.radio{width: 50px;}
 #register form .button{width: 400px; height:50px; text-align:center;}
 #register form input[type='submit']{width: 80px; height:30px;margin-top:30px;}
@@ -108,44 +109,14 @@ footer{height: 80px; border-top:2px solid #222;}
 #boardlist button{padding:10px;}
 
 /* boardView스타일 */
-#board_detail {
-  width: 650px;
-  margin: 40px auto 200px;
-}
+#board_detail{width: 550px; margin: 40px auto 100px;}
+#board_detail table{width: 550px; margin: 30px auto; border-collapse: collapse;}
+#board_detail table input[type='text']{width: 520px; height: 25px; padding: 5px;}
+#board_detail table tr:nth-of-type(3) td{text-align: left; padding-left: 10px;}
+#board_detail table tr:nth-of-type(4) td{text-align: left; padding-left: 10px;}
+#board_detail table textarea{width: 520px; height: 350px; resize: none; padding: 5px;
+    line-height: 1.5; font-family: '맑은고딕'}
+#board_detail table button[type='button']{width: 80px; height: 30px;}
 
-#board_detail table {
-  width: 650px;
-  margin: 30px auto;
-}
-
-#board_detail table,
-#board_detail th,
-#board_detail td {
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-#board_detail table th,
-#board_detail td {
-  padding: 10px 0;
-  font-size: 0.9em;
-}
-
-#board_detail table thead {
-  background: #eee;
-}
-
-#board_detail .btnWrite {
-  text-align: right;
-  margin-right: 10px;
-}
-
-#board_detail button {
-  padding: 10px;
-}
-
-
-
-
+/* memberEvent */
 
