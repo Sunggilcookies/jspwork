@@ -84,7 +84,7 @@ public class MainController extends HttpServlet {
 			nextPage = "/member/memberForm.jsp";
 		}else if(command.equals("/addMember.do")) {
 			//폼에 입력된 데이터 받기
-			String memberId = request.getParameter("memberId");
+			String memberId = request.getParameter("memberId"); //name속
 			String Passwd = request.getParameter("passwd1");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");

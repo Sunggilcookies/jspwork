@@ -136,11 +136,11 @@ public class MemberDAO {
 	}
 	// 오류sg 1. rs값에 pstmt가져온값 저장 2. 데이터한줄 띠면 2번째줄 공백한칸 띄어주기 
 	//ID 중복 체크
-	public boolean duplicatedID(String memberId) {
+	public int duplicatedID(String memberId) {
 		
-		boolean result = false;
+		int result = 0;
 		conn =JDBCUtil.getConnection();
-		String sql = "SELECT DECODE (COUNT(*), 1, 'true', 'false') AS result"
+		String sql = "SELECT COUNT(*) AS result"
 				+ " FROM t_member WHERE memberid = ?";
 				try {
 					pstmt = conn.prepareStatement(sql);
@@ -148,7 +148,7 @@ public class MemberDAO {
 					rs=pstmt.executeQuery(); //db에 저장
 					
 					if (rs.next()){
-						result = rs.getBoolean("result"); //칼럼이 result인 값을 꺼내옴
+						result = rs.getInt("result"); //칼럼이 result인 값을 꺼내옴
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -161,6 +161,24 @@ public class MemberDAO {
 		
 		return result;
 	};
+	/*
+	 * //ID 중복 체크 public boolean duplicatedID(String memberId) {
+	 * 
+	 * boolean result = false; conn =JDBCUtil.getConnection(); String sql =
+	 * "SELECT DECODE (COUNT(*), 1, 'true', 'false') AS result" +
+	 * " FROM t_member WHERE memberid = ?"; try { pstmt =
+	 * conn.prepareStatement(sql); pstmt.setString(1, memberId);
+	 * rs=pstmt.executeQuery(); //db에 저장
+	 * 
+	 * if (rs.next()){ result = rs.getBoolean("result"); //칼럼이 result인 값을 꺼내옴 } }
+	 * catch (SQLException e) { e.printStackTrace(); } finally {
+	 * JDBCUtil.close(conn, pstmt ,rs); }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * return result; };
+	 */
 	
 }
 		
