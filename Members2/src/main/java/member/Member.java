@@ -1,10 +1,9 @@
 package member;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class Member implements Serializable{
-
 
 	private static final long serialVersionUID = 3L;
 	
@@ -16,8 +15,9 @@ public class Member implements Serializable{
 	private Date joinDate;
 	
 	//생성자
-	public Member() {};
+	public Member() {}
 	
+	//get, set 메서드
 	public String getMemberId() {
 		return memberId;
 	}
@@ -48,5 +48,4 @@ public class Member implements Serializable{
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-	
 }
