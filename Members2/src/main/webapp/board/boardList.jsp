@@ -14,6 +14,17 @@
 	<div id="container">
 	   <section id="boardlist">
 		<h2>게시판 목록</h2>
+		<!-- 검색 폼 -->
+		<form action="" method="get" class="search_form">
+			<select name="field" class="sel_field">
+				<option ${(field eq "title")?"selected":""} value="title">제목</option>
+			    <option ${(field eq "memberId")?"selected":""} value="memberId">작성자</option>
+			</select>
+		    <input type="text" name="kw" value="${kw}" class="in_kw">
+		    <button type="submit">검색</button>
+		</form>
+		
+		<!-- 목록 -->
 		<table id="tbl_list">
 			<thead>
 				<tr>
@@ -46,10 +57,10 @@
 		<div class="pagination">
 			<!-- 이전 페이지 -->
 			<c:if test="${startPage > 1}">
-				<a href="/boardList.do?pageNum=${startPage-1}">이전</a>
+				<a href="/boardList.do?pageNum=${startPage-1}">&laquo;</a>
 			</c:if>
 			<c:if test="${startPage == 1}">
-				<a href="">이전</a>
+				<a href="">&laquo;</a>
 			</c:if>
 			
 			<!-- 페이지 리스트 -->
@@ -68,10 +79,10 @@
 			
 			<!-- 다음 페이지 -->
 			<c:if test="${endPage > startPage}">
-			   <a href="/boardList.do?pageNum=${startPage+1}">다음</a>
+			   <a href="/boardList.do?pageNum=${startPage+1}">&raquo;</a>
 			</c:if>
 			<c:if test="${endPage == startPage}">
-				<a href="">다음</a>
+				<a href="">&raquo;</a>
 			</c:if>
 		</div>
 		

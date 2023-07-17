@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<script src="https://kit.fontawesome.com/187dabceeb.js" crossorigin="anonymous"></script>
 <header>
 	<div id="logo">
-		<h1><a href="index.jsp">Gangnam</a></h1>
+		<h1><a href="/">Gangnam</a></h1>
 	</div>
 	<nav>
 		<c:choose>
@@ -18,10 +18,10 @@
 			</c:when>
 			<c:otherwise>
 				<ul id="topMenu">
-					<li><a href="/logout.do">(${sessionId}님접속중) 로그아웃</a></li>
-					<li><a href="/memberView.do?memberId=${sessionId}">${sessionId}나의정보</a></li>
+					<li><a href="/logout.do">[${sessionId}]로그아웃</a></li>
+					<li><a href="/memberView.do?memberId=${sessionId}">나의 정보</a></li>
 					<li><a href="/boardList.do">게시판</a></li>
-					<li><a href="/memberList.do">회원목록</a></li>
+					<li><a href="/memberList.do">회원 목록</a></li>
 				</ul>
 			</c:otherwise>
 		</c:choose>

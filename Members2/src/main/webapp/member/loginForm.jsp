@@ -10,22 +10,23 @@
 </head>
 <body>
 	<!-- 다국어 Locale 설정 -->
-	<fmt:setLocale value="${param.language}" />
+	<fmt:setLocale value="${param.language}"/>
 	<fmt:bundle basename="bundle.message">
+	
 	<jsp:include page="../header.jsp" />
 	<div id="container">
 		<section id="login">
 			<!-- 다국어 메뉴 영역 -->
 			<div class="language">
-				<a href="?language=ko" >한국어</a> |	<a href="?language=en">English</a> 
-				
+				<a href="?language=ko">한국어</a> | 
+				<a href="?language=en">English</a>
 			</div>
 			<h2><fmt:message key="login.title" /></h2>
 			<form action="/loginProcess.do" method="post">
 				<fieldset>
 					<ul>
 						<li>
-							<label for="memberId"><fmt:message key="login.id" /></label>
+							<label for="memberId"><fmt:message key="login.id" /> </label>
 							<input type="text" id="memberId" name="memberId"
 								placeholder="ID" required="required" autofocus>
 						</li>
@@ -37,12 +38,12 @@
 					</ul>
 				</fieldset>
 			<div class="button">
-				<input type="submit" value="<fmt:message key='login.button'/>">
+				<input type="submit" value="<fmt:message key='login.button' />">
 			</div>
 			</form>
 		</section>
 	</div>
-	</fmt:bundle>
 	<jsp:include page="../footer.jsp" />
+	</fmt:bundle>
 </body>
 </html>
