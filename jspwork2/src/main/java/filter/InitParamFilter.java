@@ -1,5 +1,3 @@
-// chain.doFilter(request, response);//필터처리 안되면 404 에러뜸
-
 package filter;
 
 import java.io.IOException;
@@ -13,9 +11,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 public class InitParamFilter implements Filter{
-
-	private FilterConfig filterConfig = null;
 	
+	private FilterConfig filterConfig = null;
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.filterConfig = filterConfig;
@@ -25,13 +23,17 @@ public class InitParamFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-			//한글 인코딩처리
+		//한글 인코딩 처리
 		request.setCharacterEncoding("utf-8");
+		
 		response.setContentType("text/html; charset=utf-8");
+		
 		PrintWriter out = response.getWriter();
-		//인증처리
+		
+		//인증 처리
 		String id = request.getParameter("id");
 		String pw = request.getParameter("passwd");
+		
 		//web.xml 필터 설정 참조
 		String param1 = filterConfig.getInitParameter("param1");
 		String param2 = filterConfig.getInitParameter("param2");
@@ -39,17 +41,15 @@ public class InitParamFilter implements Filter{
 		if(id.equals(param1) && pw.equals(param2)) {
 			out.println("로그인 성공!");
 		}else {
-			out.print("로그인 실패!");
+			out.println("로그인 실패!");
 		}
 		
-		chain.doFilter(request, response);//필터처리
+		chain.doFilter(request, response);  //필터 처리
 	}
-
+	
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-		Filter.super.destroy();
+		System.out.println("InitParamFilter 해제...");
 	}
 
-	
 }
