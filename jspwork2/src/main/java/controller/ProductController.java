@@ -52,7 +52,7 @@ public class ProductController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 		dispatcher.forward(request, response);
 	}
-
+	
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
